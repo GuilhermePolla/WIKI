@@ -4,7 +4,7 @@
   "description": "Trabalho Web II",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./app.js localhost 3000",
+    "start": "nodemon ./routes/index.js localhost 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
