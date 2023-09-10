@@ -6,10 +6,10 @@
     <title>login</title>
   </head>
   <body>
-    <input placeholder="Email..." />
-    <input placeholder="Password..." />
-    <a href="/" target="_self">
-      <button>to Admin</button>
-    </a>
+    <form action="/login" method="post">
+      <input id="username" name="username" placeholder="Email..." />
+      <input id="password" name="password" placeholder="Password..." />
+      <button type="submit">to Admin</button>
+    </form>
   </body>
 </html>
