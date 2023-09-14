@@ -17,6 +17,7 @@ router.post("/", (req, res) => {
   res.status(400).send({
     message: "Invalid username/password",
   });
+  return;
 });
 
 module.exports = router;
