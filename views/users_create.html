@@ -20,38 +20,53 @@
     <h1>Cadastro de Usuário</h1>
     <form action="/users_create" method="post">
       <input
-        placeholder="Nome"
+        placeholder="Nome..."
         type="text"
-        id="nome"
-        name="nome"
+        id="author_name"
+        name="author_name"
         required
       /><br />
-
       <input
-        placeholder="Senha"
+        placeholder="Nome de Usuário..."
+        type="text"
+        id="author_user"
+        name="author_user"
+        required
+      /><br />
+      <input
+        placeholder="Senha..."
         type="password"
-        id="senha"
-        name="senha"
+        id="author_pwd"
+        name="author_pwd"
         required
       /><br />
 
       <input
-        placeholder="Repitir Senha"
+        placeholder="Repetir Senha..."
         type="password"
         id="repetirSenha"
         name="repetirSenha"
         required
       /><br />
-
       <input
-        placeholder="Email"
+        placeholder="Email..."
         type="text"
-        id="email"
-        name="email"
+        id="author_email"
+        name="author_email"
         required
       /><br />
 
-      <input type="submit" value="Cadastrar" />
+      <input type="radio" id="admin" name="author_level" value="admin" />
+      <label for="admin">Admin</label><br />
+      <input type="radio" id="user" name="author_level" value="user" />
+      <label for="user">User</label><br />
+
+      <input type="radio" id="on" name="author_status" value="on" />
+      <label for="on">On</label><br />
+      <input type="radio" id="off" name="author_status" value="off" />
+      <label for="off">Off</label><br />
+
+      <input id="cadastrar" type="submit" value="Cadastrar" />
     </form>
   </body>
 </html>
