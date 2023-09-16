@@ -1,3 +1,6 @@
-const express = require("express");
+function authenticator(req, res, next) {
+  console.log("Authenticating...");
+  next();
+}
 
-const app = express();
+module.exports = authenticator;

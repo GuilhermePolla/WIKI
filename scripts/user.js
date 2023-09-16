@@ -3,6 +3,7 @@ function getName() {
   console.log(name);
   return name;
 }
+getName();
 
 const nameElement = document.querySelector("#name");
 nameElement.innerHTML = getName();
