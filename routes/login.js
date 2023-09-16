@@ -1,4 +1,5 @@
 const express = require("express");
+const authenticator = require("../middleware/authenticator");
 
 const router = express.Router();
 
@@ -6,18 +7,12 @@ router.get("/", function (req, res, next) {
   res.sendFile("./views/login.html", { root: "." });
 });
 
-router.post("/", (req, res) => {
-  console.log(`${req.body.username} ${req.body.password}`);
-  //authenticator
-  //is admin
+router.get("/admin", authenticator, function (req, res, next) {
   res.sendFile("./views/admin.html", { root: "." });
-  //is user
-  res.sendFile("./views/index.html", { root: "." });
-  //not found
-  res.status(400).send({
-    message: "Invalid username/password",
-  });
-  return;
+});
+
+router.get("/user", authenticator, function (req, res, next) {
+  res.sendFile("./views/user.html", { root: "." });
 });
 
 module.exports = router;

@@ -18,7 +18,7 @@
     "kb_body": "BODY 1.",
     "kb_permalink": "titulo1",
     "kb_keywords": "teste",
-    "kb_liked_count": "10",
+    "kb_liked_count": "11",
     "kb_published": "on",
     "kb_suggestion": "on",
     "kb_featured": "on",
@@ -31,10 +31,10 @@
     "kb_body": "BODY 2.",
     "kb_permalink": "titulo2",
     "kb_keywords": "teste",
-    "kb_liked_count": "10",
+    "kb_liked_count": "12",
     "kb_published": "on",
     "kb_suggestion": "on",
-    "kb_featured": "on",
+    "kb_featured": "off",
     "kb_author_email": "andre.ruaro@unesc.net",
     "kb_published_date": "2023-08-30"
   }

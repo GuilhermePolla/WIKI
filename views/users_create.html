@@ -3,21 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>users_create</title>
-  </head>
+    <title>users_create</title></head
+  ><link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+    crossorigin="anonymous"
+  />
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"
+  ></script>
+  <script src="../scripts/users_create.js" defer></script>
   <body>
     <h1>Cadastro de Usuário</h1>
-    <form id="users_create_form" action="/cadastro" method="post">
-        <input placeholder="Nome" type="text" id="nome" name="nome" required><br>
-        <script id="erroNome" src="/scripts/users_create.js"></script>
-
-        <input placeholder="Senha" type="password" id="senha" name="senha" required><br>
-
-        <input placeholder="Repitir Senha" type="password" id="rSenha" name="repetirSenha" required><br>
-
-        <input placeholder="Email" type="email" id="email" name="email" required><br>
-
-        <input type="submit" value="Cadastrar">
+    <form action="/users_create" method="post">
+      <input
+        placeholder="Nome..."
+        type="text"
+        id="author_name"
+        name="author_name"
+        required
+      /><br />
+      <input
+        placeholder="Nome de Usuário..."
+        type="text"
+        id="author_user"
+        name="author_user"
+        required
+      /><br />
+      <input
+        placeholder="Senha..."
+        type="password"
+        id="author_pwd"
+        name="author_pwd"
+        required
+      /><br />
+      <input
+        placeholder="Repetir Senha..."
+        type="password"
+        id="repetirSenha"
+        name="repetirSenha"
+        required
+      /><br />
+      <input
+        placeholder="Email..."
+        type="text"
+        id="author_email"
+        name="author_email"
+        required
+      /><br />
+      <input type="radio" id="admin" name="author_level" value="admin" />
+      <label for="admin">Admin</label><br />
+      <input type="radio" id="user" name="author_level" value="user" />
+      <label for="user">User</label><br />
+      <input type="radio" id="on" name="author_status" value="on" />
+      <label for="on">On</label><br />
+      <input type="radio" id="off" name="author_status" value="off" />
+      <label for="off">Off</label><br />
+      <input id="cadastrar" type="submit" value="Cadastrar" />
     </form>
   </body>
 </html>

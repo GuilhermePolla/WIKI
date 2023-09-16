@@ -10,6 +10,14 @@ router.get("/admin.js", (req, res, next) => {
   res.sendFile("./scripts/admin.js", { root: "." });
 });
 
+router.get("/user.js", (req, res, next) => {
+  res.sendFile("./scripts/user.js", { root: "." });
+});
+
+router.get("/articles.js", (req, res, next) => {
+  res.sendFile("./scripts/articles.js", { root: "." });
+});
+
 router.get("/articles_create.js", (req, res, next) => {
   res.sendFile("./scripts/articles_create.js", { root: "." });
 });
