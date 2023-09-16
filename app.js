@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
-const sha256 = require("js-sha256");
+const sha256 = require("js-sha256").sha256;
 
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -98,18 +98,27 @@ app.get("/users", (req, res) => {
 
 //criar user
 app.post("/users_create", (req, res) => {
-  console.log(req.body);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
     const newUser = {
+      author_id: sha256(req.body.author_user),
       ...req.body,
-      kb_id: sha256(req.body.author_name),
     };
-    if (users.find((user) => user.kb_id === newUser.kb_id) !== undefined) {
-      return res.status(400).json({ status: "exists" });
+    console.log(newUser);
+    if (
+      users.find((user) => user.author_id === newUser.author_id) !== undefined
+    ) {
+      return res.status(400).json({ status: "author_id" });
+    }
+    if (
+      users.find((user) => user.author_email === newUser.author_email) !==
+      undefined
+    ) {
+      return res.status(400).json({ status: "author_email" });
     }
     users.push(newUser);
+
     fs.writeFileSync("./data/users.json", JSON.stringify(users));
     return res.status(201).json({ status: "success" });
   } catch (err) {
