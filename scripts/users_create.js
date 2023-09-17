@@ -61,7 +61,7 @@ async function onSubmit() {
   if (loginRes.status === 400) {
     const res = await loginRes.json();
     switch (res.status) {
-      case "author_id":
+      case "author_user":
         alert("Username already exists");
         break;
       case "author_email":
@@ -141,5 +141,9 @@ async function renderUsers() {
     });
   });
 }
+
+window.onpageshow = () => {
+  renderUsers();
+};
 
 renderUsers();

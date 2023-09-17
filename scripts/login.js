@@ -37,18 +37,9 @@ async function onSubmit() {
   if (loginRes.status === 201) {
     const loginResJson = await loginRes.json();
     console.log(loginResJson);
-    switch (loginResJson.role) {
-      case "admin":
-        // fetch("http://localhost:3000/login/admin");
-        localStorage.setItem("@loginWebII", "admin");
-        window.location.href = "http://localhost:3000/login/admin";
-        break;
-      case "user":
-        // fetch("http://localhost:3000/login/user");
-        localStorage.setItem("@loginWebII", "user");
-        window.location.href = "http://localhost:3000/login/user";
-        break;
-    }
+    localStorage.setItem("@loginWebII", loginResJson.name);
+    const author_id = loginResJson.id;
+    window.location.href = `http://localhost:3000/login/?id=${author_id}`;
   }
   if (loginRes.status === 400) {
     alert("Invalid username or password");
@@ -57,5 +48,5 @@ async function onSubmit() {
 
 async function logout() {
   localStorage.removeItem("@loginWebII");
-  window.location.href = "http://localhost:3000/index";
+  window.location.href = "http://localhost:3000/";
 }

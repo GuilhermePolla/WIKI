@@ -17,6 +17,52 @@
   ></script>
   <script src="../scripts/users_edit.js" defer></script>
   <body>
-    <div id="user"></div>
+    <h1 id="user_name"></h1>
+    <form id="users_edit_form">
+      <input
+        placeholder="Nome..."
+        type="text"
+        id="author_name"
+        name="author_name"
+        required
+      /><br />
+      <input
+        placeholder="Nome de Usuário..."
+        type="text"
+        id="author_user"
+        name="author_user"
+        required
+      /><br />
+      <input
+        placeholder="Senha..."
+        type="password"
+        id="author_pwd"
+        name="author_pwd"
+        required
+      /><br />
+      <input
+        placeholder="Repetir Senha..."
+        type="password"
+        id="repetirSenha"
+        name="repetirSenha"
+        required
+      /><br />
+      <input
+        placeholder="Email..."
+        type="text"
+        id="author_email"
+        name="author_email"
+        required
+      /><br />
+      <input type="radio" id="admin" name="author_level" value="admin" />
+      <label for="admin">Admin</label><br />
+      <input type="radio" id="user" name="author_level" value="user" />
+      <label for="user">User</label><br />
+      <input type="radio" id="on" name="author_status" value="on" />
+      <label for="on">On</label><br />
+      <input type="radio" id="off" name="author_status" value="off" />
+      <label for="off">Off</label><br />
+      <button id="editar_button" type="submit">Concluir</button>
+    </form>
   </body>
 </html>

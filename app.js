@@ -64,13 +64,15 @@ app.post("/login", (req, res) => {
     const users = JSON.parse(data);
     const user = users.find(
       (user) =>
-        user.author_email === req.body.username &&
-        user.author_pwd === req.body.password
+        user.author_user === req.body.username &&
+        user.author_pwd === sha256(req.body.password)
     );
     if (user !== undefined) {
-      return res
-        .status(201)
-        .json({ role: user.author_level, status: "success" });
+      return res.status(201).json({
+        id: user.author_id,
+        name: user.author_user,
+        status: "success",
+      });
     } else {
       return res.status(401).json({ status: "error" });
     }
@@ -119,14 +121,20 @@ app.post("/users_create", (req, res) => {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
     const newUser = {
-      author_id: sha256(req.body.author_user),
-      ...req.body,
+      author_id: sha256(req.body.author_name),
+      author_name: req.body.author_name,
+      author_user: req.body.author_user,
+      author_pwd: sha256(req.body.author_pwd),
+      author_email: req.body.author_email,
+      author_level: req.body.author_level,
+      author_status: req.body.author_status,
     };
     console.log(newUser);
     if (
-      users.find((user) => user.author_id === newUser.author_id) !== undefined
+      users.find((user) => user.author_user === newUser.author_user) !==
+      undefined
     ) {
-      return res.status(400).json({ status: "author_id" });
+      return res.status(400).json({ status: "author_user" });
     }
     if (
       users.find((user) => user.author_email === newUser.author_email) !==
@@ -145,20 +153,41 @@ app.post("/users_create", (req, res) => {
 });
 
 //editar user
-app.post("/users/users_edit/:id", (req, res) => {
+app.post("/users_edit/:id", (req, res) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
     const newUser = {
+      author_id: req.params.id,
       ...req.body,
     };
-    if (users.find((user) => user.kb_id === newUser.kb_id) !== undefined) {
-      return res.status(400).json({ status: "exists" });
+    if (
+      users.find((user) => user.author_id === newUser.author_id) !== undefined
+    ) {
+      const filteredUsers = users.filter((user) => {
+        return user.author_id !== newUser.author_id;
+      });
+
+      if (
+        filteredUsers.find(
+          (user) => user.author_user === newUser.author_user
+        ) !== undefined
+      ) {
+        return res.status(400).json({ status: "author_user" });
+      }
+      if (
+        filteredUsers.find(
+          (user) => user.author_email === newUser.author_email
+        ) !== undefined
+      ) {
+        return res.status(400).json({ status: "author_email" });
+      }
+      filteredUsers.push(newUser);
+      fs.writeFileSync("./data/users.json", JSON.stringify(filteredUsers));
+      return res.status(201).json({ status: "success" });
     }
-    users.push(newUser);
-    fs.writeFileSync("./data/users.json", JSON.stringify(users));
-    return res.status(201).json({ status: "success" });
+    return res.status(400).json({ status: "not_found" });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: "error" });
@@ -221,7 +250,8 @@ app.post("/articles_create", (req, res, next) => {
       ...req.body,
     };
     if (
-      articles.find((article) => article.kb_id === newArticle.kb_id) !== undefined
+      articles.find((article) => article.kb_id === newArticle.kb_id) !==
+      undefined
     ) {
       return res.status(400).json({ status: "exists" });
     }
