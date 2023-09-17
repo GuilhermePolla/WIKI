@@ -12,7 +12,7 @@ const id = params.get("id");
 async function getArticle(id) {
   const article = fetch("http://localhost:3000/articles/" + id)
     .then((response) => {
-      if (response.status === 200) {
+      if (response.status === 201) {
         return response.json();
       }
       return null;
