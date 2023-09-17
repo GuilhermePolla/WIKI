@@ -9,24 +9,6 @@
     "author_status": "on"
   },
   {
-    "author_id": "7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd",
-    "author_name": "Teste User",
-    "author_email": "user",
-    "author_user": "username user",
-    "author_pwd": "user",
-    "author_level": "user",
-    "author_status": "on"
-  },
-  {
-    "author_id": "7a6cc1282c5f6ec0235acd2bfa780145aa2a67fd",
-    "author_name": "Teste Admin",
-    "author_email": "admin",
-    "author_user": "username admin",
-    "author_pwd": "admin",
-    "author_level": "admin",
-    "author_status": "on"
-  },
-  {
     "author_name": "asd",
     "author_user": "asd",
     "author_pwd": "asd",
@@ -36,11 +18,11 @@
     "author_id": "688787d8ff144c502c7f5cffaafe2cc588d86079f9de88304c26b0cb99ce91c6"
   },
   {
-    "author_id": "489cd5dbc708c7e541de4d7cd91ce6d0f1613573b7fc5b40d3942ccb9555cf35",
-    "author_name": "asd",
-    "author_user": "qwe",
-    "author_pwd": "asd",
-    "author_email": "qwe",
+    "author_id": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "author_name": "123",
+    "author_user": "123",
+    "author_pwd": "123",
+    "author_email": "123",
     "author_level": "admin",
     "author_status": "on"
   }

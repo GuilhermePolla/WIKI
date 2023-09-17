@@ -34,8 +34,8 @@ router.get("/users_create.js", (req, res, next) => {
   res.sendFile("./scripts/users_create.js", { root: "." });
 });
 
-router.get("/users_edit.js", (req, res, next) => {
-  res.sendFile("./scripts/users_edit.js", { root: "." });
-});
+// router.get("./users_edit.js", (req, res, next) => {
+//   res.sendFile("./scripts/users_edit.js", { root: "." });
+// });
 
 module.exports = router;

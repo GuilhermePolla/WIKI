@@ -83,11 +83,28 @@ app.post("/login", (req, res) => {
 //--------------------USERS--------------------//
 
 //mostrar user
-app.get("/users", (req, res) => {
+app.get("/user/:id", (req, res, next) => {
+  console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
-    res.status(201).json({ data: users, status: "success" });
+    const user = users.find((user) => user.author_id === req.params.id);
+    if (user) {
+      return res.status(201).json(user);
+    }
+    return res.status(404).json({ status: "error" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ status: "error" });
+  }
+});
+
+//mostrar todos os user
+app.get("/all_users", (req, res) => {
+  try {
+    const data = fs.readFileSync("./data/users.json", "utf8");
+    const users = JSON.parse(data);
+    res.status(201).send(users);
     return;
   } catch (err) {
     console.error(err);
@@ -128,8 +145,8 @@ app.post("/users_create", (req, res) => {
 });
 
 //editar user
-app.post("/users_edit", (req, res) => {
-  console.log(req.body);
+app.post("/users/users_edit/:id", (req, res) => {
+  console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
@@ -149,14 +166,20 @@ app.post("/users_edit", (req, res) => {
 });
 
 //deletar users
-app.delete("/users_delete/", (req, res, next) => {
+app.delete("/users_delete", (req, res, next) => {
   console.log(req.body);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
+    const exists = users.find((user) => {
+      return user.author_id === req.body.author_id;
+    });
     const filteredUsers = users.filter((user) => {
       return user.author_id !== req.body.author_id;
     });
+    if (exists === undefined) {
+      return res.status(400).json({ status: "error" });
+    }
     fs.writeFileSync("./data/users.json", JSON.stringify(filteredUsers));
     return res.status(201).json({ status: "success" });
   } catch (err) {
