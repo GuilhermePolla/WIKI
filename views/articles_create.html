@@ -17,6 +17,17 @@
   ></script>
   <script src="../scripts/articles_create.js" defer></script>
   <body>
-    articles_create
+    <form id="articles_create_form">
+      <h1>Criar Artigo</h1> 
+      <input placeholder="Titulo" type="text" id="title" name="title"/><br/>
+      <textarea
+         placeholder="Texto" type="text" id="content" name="content" rows="5" cols="70">
+      </textarea><br/>
+      <textarea 
+        placeholder="Escreva as palavras chave separadas por virgula" type="text" 
+        id="keywords" name="keywords" rows="2" cols="70">
+      </textarea><br/>
+      <button id="cadastrar_button" type="submit">Cadastrar</button>
+    </form>
   </body>
 </html>

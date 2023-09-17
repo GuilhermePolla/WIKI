@@ -25,5 +25,23 @@
     "author_email": "123",
     "author_level": "admin",
     "author_status": "on"
+  },
+  {
+    "author_id": "23b08b1f0931fbbe958732cab9791d30ecc1e35a4c6276cc1c3c03643a611837",
+    "author_name": "picles",
+    "author_user": "picles",
+    "author_pwd": "picles",
+    "author_email": "picles",
+    "author_level": "admin",
+    "author_status": "on"
+  },
+  {
+    "author_id": "4d19ca423b81636be03a8aa57b598780cd80b36adb715312d7926e05b7f5a077",
+    "author_name": "jabulani",
+    "author_user": "jabulani",
+    "author_pwd": "jabulani",
+    "author_email": "jabulani",
+    "author_level": "user",
+    "author_status": "on"
   }
 ]

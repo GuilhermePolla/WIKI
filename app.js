@@ -217,12 +217,11 @@ app.post("/articles_create", (req, res, next) => {
     const data = fs.readFileSync("./data/articles.json", "utf8");
     const articles = JSON.parse(data);
     const newArticle = {
-      ...req.body,
       kb_id: sha256(req.body.kb_title + req.body.kb_author_email + Date.now()),
-      kb_liked_count: 0,
+      ...req.body,
     };
     if (
-      data.find((article) => article.kb_id === newArticle.kb_id) !== undefined
+      articles.find((article) => article.kb_id === newArticle.kb_id) !== undefined
     ) {
       return res.status(400).json({ status: "exists" });
     }
