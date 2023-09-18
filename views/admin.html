@@ -15,17 +15,16 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"
   ></script>
-  <script src="../scripts/admin.js" defer></script>
+  <script src="admin.js" defer></script>
   <body>
+    <button id="logout" onclick="logout()">Logout</button>
     <h1 id="name"></h1>
-    <a href="/users/users_create" target="_self">
+    <a href="/users_create" target="_self">
       <button>users_create</button>
     </a>
-    <a href="/articles/articles_create" target="_self">
+    <a href="/articles_create" target="_self">
       <button>articles_create</button>
     </a>
-    <a href="/articles/articles_edit" target="_self">
-      <button>articles_edit</button>
-    </a>
+    <div id="articles"></div>
   </body>
 </html>

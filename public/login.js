@@ -10,11 +10,6 @@ loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   onSubmit();
 });
-const loginButton = document.querySelector("#logout");
-loginButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  logout();
-});
 
 const usernameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
@@ -37,16 +32,11 @@ async function onSubmit() {
   if (loginRes.status === 201) {
     const loginResJson = await loginRes.json();
     console.log(loginResJson);
-    localStorage.setItem("@loginWebII", loginResJson.name);
-    const author_id = loginResJson.id;
-    window.location.href = `http://localhost:3000/login/?id=${author_id}`;
+    // localStorage.setItem("@loginWebII", loginResJson.name);
+    const redirect = loginResJson.status;
+    window.location.href = `http://localhost:3000/${redirect}`;
   }
   if (loginRes.status === 400) {
     alert("Invalid username or password");
   }
-}
-
-async function logout() {
-  localStorage.removeItem("@loginWebII");
-  window.location.href = "http://localhost:3000/";
 }

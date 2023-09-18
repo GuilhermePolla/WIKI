@@ -5,6 +5,28 @@ function getName() {
 }
 getName();
 
+const loginButton = document.querySelector("#logout");
+loginButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  logout();
+});
+
+async function logout() {
+  const logoutRes = await fetch("http://localhost:3000/logout", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+
+  if (logoutRes.status === 200) {
+    localStorage.removeItem("@loginWebII");
+    window.location.href = "http://localhost:3000/";
+  } else {
+    alert("Erro ao fazer logout");
+  }
+}
+
 const loginForm = document.querySelector("#users_create_form");
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -31,7 +53,7 @@ async function onSubmit() {
     return;
   }
   if (author_pwd.value !== repetirSenha.value) {
-    alert("Senhas não conferem");
+    alert("Senhas não conferem.");
     return;
   }
 
@@ -129,7 +151,7 @@ async function renderUsers() {
         <p class="card-text">${user.author_email}</p>
         <p class="card-text">${user.author_level}</p>
         <p class="card-text">${user.author_status}</p>  
-        <a href="/users/users_edit/?id=${user.author_id}" class="btn btn-primary">Edit</a>
+        <a href="/users_edit/?id=${user.author_id}" class="btn btn-primary">Edit</a>
         <button id="delete_${user.author_id}" class="btn btn-danger">Delete</button>
       </div>
     `;
