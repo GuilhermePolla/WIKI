@@ -8,9 +8,10 @@ getName();
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
 const id = params.get("id");
+console.log(id);
 
 async function getArticle(id) {
-  const article = fetch("http://localhost:3000/articles/" + id)
+  const article = fetch("http://localhost:3000/articles_id/" + id)
     .then((response) => {
       if (response.status === 201) {
         return response.json();
@@ -26,7 +27,7 @@ async function getArticle(id) {
 }
 
 async function renderArticle(id) {
-  const article = await getArticle(id);
+  const articleRes = await getArticle(id);
   const articleContainer = document.querySelector("#article");
   articleContainer.innerHTML = "";
   if (article === null) {
@@ -37,10 +38,10 @@ async function renderArticle(id) {
   articleCard.classList.add("card");
   articleCard.innerHTML = `
         <div class="card-body">
-          <h5 class="card-title">${article.kb_title}</h5>
-          <p class="card-text">${article.kb_body}</p>
-          <p class="card-text">${article.kb_author_email}</p>
-          <p class="card-text">${article.kb_liked_count}</p>
+          <h5 class="card-title">${articleRes.article.kb_title}</h5>
+          <p class="card-text">${articleRes.article.kb_body}</p>
+          <p class="card-text">${articleRes.article.kb_author_email}</p>
+          <p class="card-text">${articleRes.article.kb_liked_count}</p>
         </div>
       `;
   articleContainer.appendChild(articleCard);

@@ -5,6 +5,28 @@ function getName() {
 }
 getName();
 
+const loginButton = document.querySelector("#logout");
+loginButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  logout();
+});
+
+async function logout() {
+  const logoutRes = await fetch("http://localhost:3000/logout", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+
+  if (logoutRes.status === 200) {
+    localStorage.removeItem("@loginWebII");
+    window.location.href = "http://localhost:3000/";
+  } else {
+    alert("Erro ao fazer logout");
+  }
+}
+
 const articleForm = document.querySelector("#articles_create_form");
 articles_create_form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -21,7 +43,7 @@ const mes = dataAtual.getMonth() + 1;
 const ano = dataAtual.getFullYear();
 
 async function onSubmit() {
-console.log("test");
+  console.log("test");
   const articleRes = await fetch("http://localhost:3000/articles_create", {
     method: "POST",
     headers: {
@@ -42,11 +64,14 @@ console.log("test");
   });
 
   if (articleRes.status === 201) {
-    alert("User created successfully");}
+    alert("User created successfully");
+  }
 
   if (articleRes.status === 400) {
-    alert("Arigo já existe");}
+    alert("Arigo já existe");
+  }
 
   if (articleRes.status === 500) {
-    alert("Erro");}
+    alert("Erro");
+  }
 }

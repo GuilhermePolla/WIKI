@@ -2,29 +2,53 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const sha256 = require("js-sha256").sha256;
+const session = require("express-session");
+const path = require("path");
 
+app.use(
+  session({
+    secret: "your_secret_key",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 // app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("public"));
+function authenticatorAdmin(req, res, next) {
+  if (req.session.user !== undefined && req.session.user !== null) {
+    if (req.session.user.author_level === "admin") {
+      console.log(`Authenticated as ${req.session.user.author_user}`);
+      return next();
+    }
+  }
 
-// const authenticator = require("./middleware/authenticator");
-// app.use(authenticator);
+  console.log("Not authenticated");
+  return res.redirect("/login");
+}
 
-//--------------------ROTAS--------------------//
-const indexRouter = require("./routes/index");
-const loginRouter = require("./routes/login");
-const usersRouter = require("./routes/users");
-const articlesRouter = require("./routes/articles");
-const scriptsRouter = require("./routes/scripts");
+function authenticatorUser(req, res, next) {
+  if (req.session.user !== undefined && req.session.user !== null) {
+    if (
+      req.session.user.author_level === "user" ||
+      req.session.user.author_level === "admin"
+    ) {
+      console.log(`Authenticated as ${req.session.user.author_user}`);
+      return next();
+    }
+  }
 
-app.use("/", indexRouter);
-app.use("/login", loginRouter);
-app.use("/users", usersRouter);
-app.use("/articles", articlesRouter);
-app.use("/scripts", scriptsRouter);
+  console.log("Not authenticated");
+  return res.redirect("/login");
+}
+
+app.use(express.static(path.join(__dirname, "public")));
 
 //--------------------INDEX--------------------//
+
+app.get("/", function (req, res) {
+  return res.sendFile("./views/index.html", { root: "." });
+});
 
 app.get("/destaques", function (req, res) {
   try {
@@ -55,6 +79,18 @@ app.get("/destaques", function (req, res) {
 
 //--------------------LOGIN--------------------//
 
+app.get("/login", (req, res) => {
+  return res.sendFile("./views/login.html", { root: "." });
+});
+
+app.get("/admin", authenticatorAdmin, (req, res) => {
+  return res.sendFile("./views/admin.html", { root: "." });
+});
+
+app.get("/user", authenticatorUser, (req, res) => {
+  return res.sendFile("./views/user.html", { root: "." });
+});
+
 app.post("/login", (req, res) => {
   console.log(req.body);
   console.log(`${req.body.username} ${req.body.password}`);
@@ -64,13 +100,13 @@ app.post("/login", (req, res) => {
     const users = JSON.parse(data);
     const user = users.find(
       (user) =>
-        user.author_email === req.body.username &&
-        user.author_pwd === req.body.password
+        user.author_user === req.body.username &&
+        user.author_pwd === sha256(req.body.password)
     );
     if (user !== undefined) {
-      return res
-        .status(201)
-        .json({ role: user.author_level, status: "success" });
+      req.session.user = user;
+      console.log(req.session.user);
+      return res.status(201).json({ status: req.session.user.author_level });
     } else {
       return res.status(401).json({ status: "error" });
     }
@@ -80,10 +116,23 @@ app.post("/login", (req, res) => {
   }
 });
 
+app.get("/logout", (req, res) => {
+  req.session.user = null;
+  return res.redirect("/login");
+});
+
 //--------------------USERS--------------------//
 
+app.get("/users_create", authenticatorAdmin, (req, res) => {
+  return res.sendFile("./views/users_create.html", { root: "." });
+});
+
+app.get("/users_edit", authenticatorAdmin, (req, res) => {
+  return res.sendFile("./views/users_edit.html", { root: "." });
+});
+
 //mostrar user
-app.get("/user/:id", (req, res, next) => {
+app.get("/user/:id", authenticatorAdmin, (req, res, next) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
@@ -100,7 +149,7 @@ app.get("/user/:id", (req, res, next) => {
 });
 
 //mostrar todos os user
-app.get("/all_users", (req, res) => {
+app.get("/all_users", authenticatorAdmin, (req, res) => {
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
@@ -114,19 +163,25 @@ app.get("/all_users", (req, res) => {
 });
 
 //criar user
-app.post("/users_create", (req, res) => {
+app.post("/users_create", authenticatorAdmin, (req, res) => {
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
     const newUser = {
       author_id: sha256(req.body.author_user),
-      ...req.body,
+      author_name: req.body.author_name,
+      author_user: req.body.author_user,
+      author_pwd: sha256(req.body.author_pwd),
+      author_email: req.body.author_email,
+      author_level: req.body.author_level,
+      author_status: req.body.author_status,
     };
     console.log(newUser);
     if (
-      users.find((user) => user.author_id === newUser.author_id) !== undefined
+      users.find((user) => user.author_user === newUser.author_user) !==
+      undefined
     ) {
-      return res.status(400).json({ status: "author_id" });
+      return res.status(400).json({ status: "author_user" });
     }
     if (
       users.find((user) => user.author_email === newUser.author_email) !==
@@ -145,20 +200,46 @@ app.post("/users_create", (req, res) => {
 });
 
 //editar user
-app.post("/users/users_edit/:id", (req, res) => {
+app.post("/users_edit/:id", authenticatorAdmin, (req, res) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
     const newUser = {
-      ...req.body,
+      author_id: req.params.id,
+      author_name: req.body.author_name,
+      author_user: req.body.author_user,
+      author_pwd: sha256(req.body.author_pwd),
+      author_email: req.body.author_email,
+      author_level: req.body.author_level,
+      author_status: req.body.author_status,
     };
-    if (users.find((user) => user.kb_id === newUser.kb_id) !== undefined) {
-      return res.status(400).json({ status: "exists" });
+    if (
+      users.find((user) => user.author_id === newUser.author_id) !== undefined
+    ) {
+      const filteredUsers = users.filter((user) => {
+        return user.author_id !== newUser.author_id;
+      });
+
+      if (
+        filteredUsers.find(
+          (user) => user.author_user === newUser.author_user
+        ) !== undefined
+      ) {
+        return res.status(400).json({ status: "author_user" });
+      }
+      if (
+        filteredUsers.find(
+          (user) => user.author_email === newUser.author_email
+        ) !== undefined
+      ) {
+        return res.status(400).json({ status: "author_email" });
+      }
+      filteredUsers.push(newUser);
+      fs.writeFileSync("./data/users.json", JSON.stringify(filteredUsers));
+      return res.status(201).json({ status: "success" });
     }
-    users.push(newUser);
-    fs.writeFileSync("./data/users.json", JSON.stringify(users));
-    return res.status(201).json({ status: "success" });
+    return res.status(400).json({ status: "not_found" });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: "error" });
@@ -166,7 +247,7 @@ app.post("/users/users_edit/:id", (req, res) => {
 });
 
 //deletar users
-app.delete("/users_delete", (req, res, next) => {
+app.delete("/users_delete", authenticatorAdmin, (req, res, next) => {
   console.log(req.body);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
@@ -174,13 +255,19 @@ app.delete("/users_delete", (req, res, next) => {
     const exists = users.find((user) => {
       return user.author_id === req.body.author_id;
     });
-    const filteredUsers = users.filter((user) => {
-      return user.author_id !== req.body.author_id;
-    });
+
     if (exists === undefined) {
       return res.status(400).json({ status: "error" });
     }
-    fs.writeFileSync("./data/users.json", JSON.stringify(filteredUsers));
+
+    const newData = users.map((user) => {
+      if (user.author_id === req.body.author_id) {
+        user.author_status = "off";
+      }
+      return user;
+    });
+
+    fs.writeFileSync("./data/users.json", JSON.stringify(newData));
     return res.status(201).json({ status: "success" });
   } catch (err) {
     console.error(err);
@@ -190,18 +277,43 @@ app.delete("/users_delete", (req, res, next) => {
 
 //--------------------ARTICLES--------------------//
 
+app.get("/articles/", (req, res) => {
+  res.sendFile("./views/articles.html", { root: "." });
+});
+
+app.get("/articles_create", authenticatorUser, (req, res) => {
+  return res.sendFile("./views/articles_create.html", { root: "." });
+});
+
+app.get("/articles_edit", authenticatorUser, (req, res) => {
+  return res.sendFile("./views/articles_edit.html", { root: "." });
+});
+
 //mostrar artigo
-app.get("/articles/:id", (req, res, next) => {
+app.get("/articles_id/:id", (req, res, next) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/articles.json", "utf8");
     const articles = JSON.parse(data);
     const article = articles.find((article) => article.kb_id === req.params.id);
     if (article) {
-      res.status(201).json(article);
-      return;
+      return res.status(201).json({ status: "success", article: article });
     }
     res.status(404).json({ status: "error" });
+    return;
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: "error" });
+    return;
+  }
+});
+
+//mostrar todos os artigos
+app.get("/all_articles", (req, res) => {
+  try {
+    const data = fs.readFileSync("./data/articles.json", "utf8");
+    const articles = JSON.parse(data);
+    res.status(201).send(articles);
     return;
   } catch (err) {
     console.error(err);
@@ -221,7 +333,8 @@ app.post("/articles_create", (req, res, next) => {
       ...req.body,
     };
     if (
-      articles.find((article) => article.kb_id === newArticle.kb_id) !== undefined
+      articles.find((article) => article.kb_id === newArticle.kb_id) !==
+      undefined
     ) {
       return res.status(400).json({ status: "exists" });
     }
