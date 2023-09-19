@@ -83,8 +83,8 @@ async function renderArticles() {
         <p class="card-text">${article.kb_body}</p>
         <p class="card-text">${article.kb_keywords}</p>
         <p class="card-text">${article.kb_liked_count}</p>  
-        <a href="/articles_edit/?id=${article.kb_id}" class="btn btn-primary">Edit</a>
-        <button id="delete_${article.kb_id}" class="btn btn-danger">Delete</button>
+        <a href="/articles_edit/?id=${article.kb_id}" class="btn btn-primary">Editar</a>
+        <button id="delete_${article.kb_id}" class="btn btn-danger">Excluir</button>
       </div>
     `;
     articles.appendChild(articleCard);

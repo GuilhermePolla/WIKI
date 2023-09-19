@@ -10,6 +10,10 @@ app.use(
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: true,
+    // cookie: {
+    //   secure: false,
+    //   maxAge: 6000000,
+    // },
   })
 );
 // app.use(express.urlencoded({ extended: true }));
@@ -63,17 +67,13 @@ app.get("/destaques", function (req, res) {
       .sort((a, b) => {
         return b.kb_liked_count - a.kb_liked_count;
       });
-
-    if (articles) {
-      res.status(201).send(articles);
-      return;
+    if (articles !== undefined) {
+      return res.status(201).send(articles);
     }
-    res.status(400).send("Article not found");
-    return;
+    return res.status(400).send("Article not found");
   } catch (err) {
     console.error(err);
-    res.status(500).send("Server error");
-    return;
+    return res.status(500).send("Server error");
   }
 });
 
@@ -132,12 +132,13 @@ app.get("/users_edit", authenticatorAdmin, (req, res) => {
 });
 
 //mostrar user
-app.get("/user/:id", authenticatorAdmin, (req, res, next) => {
+app.get("/user/:id", (req, res, next) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
     const user = users.find((user) => user.author_id === req.params.id);
+    console.log(user);
     if (user) {
       return res.status(201).json(user);
     }
@@ -149,7 +150,7 @@ app.get("/user/:id", authenticatorAdmin, (req, res, next) => {
 });
 
 //mostrar todos os user
-app.get("/all_users", authenticatorAdmin, (req, res) => {
+app.get("/all_users", (req, res) => {
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
@@ -163,7 +164,7 @@ app.get("/all_users", authenticatorAdmin, (req, res) => {
 });
 
 //criar user
-app.post("/users_create", authenticatorAdmin, (req, res) => {
+app.post("/users_create", (req, res) => {
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
@@ -247,7 +248,7 @@ app.post("/users_edit/:id", authenticatorAdmin, (req, res) => {
 });
 
 //deletar users
-app.delete("/users_delete", authenticatorAdmin, (req, res, next) => {
+app.delete("/users_delete", (req, res, next) => {
   console.log(req.body);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
@@ -287,6 +288,27 @@ app.get("/articles_create", authenticatorUser, (req, res) => {
 
 app.get("/articles_edit", authenticatorUser, (req, res) => {
   return res.sendFile("./views/articles_edit.html", { root: "." });
+});
+
+//likes
+app.post("/like/:id", (req, res) => {
+  console.log(req.params.id);
+  try {
+    const data = fs.readFileSync("./data/articles.json", "utf8");
+    const articles = JSON.parse(data);
+    const article = articles.find((article) => article.kb_id === req.params.id);
+    if (article) {
+      article.kb_liked_count = (
+        parseInt(article.kb_liked_count) + 1
+      ).toString();
+      fs.writeFileSync("./data/articles.json", JSON.stringify(articles));
+      return res.status(201).json({ status: "success" });
+    }
+    return res.status(404).json({ status: "error" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ status: "error" });
+  }
 });
 
 //mostrar artigo
