@@ -4,23 +4,53 @@
 }
 
 body{
-    background-color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 0%, rgba(73,175,241,1) 48%);
-    height: 100vh;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 0%, rgba(73,175,241,1) 48%);
 }
 
-.form_box{
+#articles_create_form{
     background-color: white;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25vh;
+    margin-top: 10vh;
+    text-align: center;
     padding: 20px 30px;
     border-radius: 18px;
-    text-align: center;
     cursor: pointer;
+    align-items: center;
 }
+
 
 .container{
     display: flex;
     justify-content: center;
-    align-items: center;
+}
+
+input, textarea, label{
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+label{
+    font-weight: bold;
+}
+
+input, textarea{
+    margin-bottom: 20px;
+}
+
+#cadastrar_button{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+    height: 40px;
+    border-radius: 18px;
+    padding: 10px;
+    background-color: rgb(96, 152, 255);
+    color: white;
+}
+
+#cadastrar_button:hover{
+    opacity: 0.7;
 }
