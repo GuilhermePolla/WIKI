@@ -148,11 +148,11 @@ async function renderUsers() {
     userCard.innerHTML = `
       <div class="card-body">
         <h5 class="card-title">${user.author_user}</h5>
-        <p class="card-text">${user.author_email}</p>
-        <p class="card-text">${user.author_level}</p>
-        <p class="card-text">${user.author_status}</p>  
-        <a href="/users_edit/?id=${user.author_id}" class="btn btn-primary">Edit</a>
-        <button id="delete_${user.author_id}" class="btn btn-danger">Delete</button>
+        <p class="card-text">Email: ${user.author_email}</p>
+        <p class="card-text">Cargo: ${user.author_level}</p>
+        <p class="card-text">Status: ${user.author_status}</p>  
+        <a href="/users_edit/?id=${user.author_id}" class="btn btn-primary">Editar</a>
+        <button id="delete_${user.author_id}" class="btn btn-danger">Deletar</button>
       </div>
     `;
     users.appendChild(userCard);
