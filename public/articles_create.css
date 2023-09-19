@@ -1,0 +1,26 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 0%, rgba(73,175,241,1) 48%);
+    height: 100vh;
+}
+
+.form_box{
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25vh;
+    padding: 20px 30px;
+    border-radius: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
