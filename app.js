@@ -77,6 +77,29 @@ app.get("/destaques", function (req, res) {
   }
 });
 
+app.get("/search/:text", (req, res) => {
+  console.log(req.params.text);
+  try {
+    const data = fs.readFileSync("./data/articles.json", "utf8");
+    const articlesJson = JSON.parse(data);
+    const tags = req.params.text.split(" ");
+    const articles = articlesJson.filter((article) => {
+      const articleTags = article.kb_tags.split(" ");
+      const found = tags.every((tag) => articleTags.includes(tag));
+      if (found && article.kb_status === "on") {
+        return article;
+      }
+    });
+    if (articles !== undefined) {
+      return res.status(201).send(articles);
+    }
+    return res.status(400).send("Article not found");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Server error");
+  }
+});
+
 //--------------------LOGIN--------------------//
 
 app.get("/login", (req, res) => {
@@ -201,7 +224,7 @@ app.post("/users_create", (req, res) => {
 });
 
 //editar user
-app.post("/users_edit/:id", authenticatorAdmin, (req, res) => {
+app.post("/users_edit/:id", (req, res) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
