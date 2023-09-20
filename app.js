@@ -84,13 +84,16 @@ app.get("/search/:text", (req, res) => {
     const articlesJson = JSON.parse(data);
     const tags = req.params.text.split(" ");
     const articles = articlesJson.filter((article) => {
-      const articleTags = article.kb_tags.split(" ");
+      const articleTags = article.kb_keywords.split(" ");
       const found = tags.every((tag) => articleTags.includes(tag));
-      if (found && article.kb_status === "on") {
+
+      console.log(found);
+      if (found && article.kb_featured === "on") {
         return article;
       }
     });
     if (articles !== undefined) {
+      console.log(articles);
       return res.status(201).send(articles);
     }
     return res.status(400).send("Article not found");
