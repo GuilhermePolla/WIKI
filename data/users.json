@@ -61,5 +61,14 @@
     "author_email": "678",
     "author_level": "admin",
     "author_status": "on"
+  },
+  {
+    "author_id": "c86d3037df3f34ef71790453c6cc33e948e40da76910abeaf396c584ea52f8c0",
+    "author_name": "Theo",
+    "author_user": "mestre",
+    "author_pwd": "4b6b2c327b649370ffe5e4df721c86ecf54e65cbea3df147213eae4305fb9d95",
+    "author_email": "theo@gamail.com",
+    "author_level": "admin",
+    "author_status": "on"
   }
 ]

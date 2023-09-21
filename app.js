@@ -48,6 +48,19 @@ function authenticatorUser(req, res, next) {
 
 app.use(express.static(path.join(__dirname, "public")));
 
+//--------------------SESSION--------------------//
+
+app.get("/current_user", (req, res) => {
+  if (req.session.user !== undefined && req.session.user !== null) {
+    return res.status(201).json({
+      author_id: req.session.user.author_id,
+      author_name: req.session.user.author_name,
+      // author_level: req.session.user.author_level,
+    });
+  }
+  return res.status(401).json({ status: "error" });
+});
+
 //--------------------INDEX--------------------//
 
 app.get("/", function (req, res) {
@@ -171,7 +184,7 @@ app.post("/login", (req, res) => {
       console.log(req.session.user);
       return res.status(201).json({
         status: req.session.user.author_level,
-        name: req.session.user.author_name,
+        id: req.session.user.author_id,
       });
     } else {
       return res.status(401).json({ status: "error" });
@@ -230,7 +243,7 @@ app.get("/all_users", (req, res) => {
 });
 
 //criar user
-app.post("/users_create", (req, res) => {
+app.post("/users_create", authenticatorAdmin, (req, res) => {
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
     const users = JSON.parse(data);
@@ -267,7 +280,7 @@ app.post("/users_create", (req, res) => {
 });
 
 //editar user
-app.post("/users_edit/:id", (req, res) => {
+app.post("/users_edit/:id", authenticatorAdmin, (req, res) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");

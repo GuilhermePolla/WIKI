@@ -1,3 +1,38 @@
+async function getUser() {
+  const idRes = fetch("http://localhost:3000/current_user/")
+    .then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      }
+      return null;
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return idRes;
+}
+
+async function getNome() {
+  const user = await getUser();
+
+  var nameElement = document.querySelector("#name");
+  var login_elem = document.querySelector("#login");
+  var logout_elem = document.querySelector("#logout");
+
+  if (user === null) {
+    login_elem.style.display = "block";
+    logout_elem.style.display = "none";
+  } else {
+    nameElement.innerHTML = user.author_name;
+    login_elem.style.display = "none";
+    logout_elem.style.display = "block";
+  }
+}
+
+getNome();
+
 var logoutButton = document.querySelector("#logout");
 logoutButton.addEventListener("click", (e) => {
   e.preventDefault();

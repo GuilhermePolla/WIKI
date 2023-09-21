@@ -1,8 +1,31 @@
-function getName() {
-  const name = localStorage.getItem("@loginWebII");
-  console.log(name);
-  return name;
+async function getUser() {
+  const idRes = fetch("http://localhost:3000/current_user/")
+    .then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      }
+      return null;
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return idRes;
 }
+
+async function getNome() {
+  const user = await getUser();
+
+  var nameElement = document.querySelector("#name");
+  if (user === null) {
+    window.location.href = "http://localhost:3000/";
+  } else {
+    nameElement.innerHTML = user.author_name;
+  }
+}
+
+getNome();
 
 var logoutButton = document.querySelector("#logout");
 logoutButton.addEventListener("click", (e) => {
@@ -25,9 +48,6 @@ async function logout() {
     alert("Erro ao fazer logout");
   }
 }
-
-var nameElement = document.querySelector("#name");
-nameElement.innerHTML = getName();
 
 async function getArticles() {
   const articles = fetch("http://localhost:3000/all_articles")
@@ -81,8 +101,8 @@ async function renderArticles() {
       <div class="card-body">
         <h5 class="card-title">${article.kb_title}</h5>
         <p class="card-text">${article.kb_body}</p>
-        <p class="card-text">${article.kb_keywords}</p>
-        <p class="card-text">${article.kb_liked_count}</p>  
+        <p class="card-text">Palavras-chave: ${article.kb_keywords}</p>
+        <p class="card-text">Likes: ${article.kb_liked_count}</p>  
         <a href="/articles_edit/?id=${article.kb_id}" class="btn btn-primary">Editar</a>
         <button id="delete_${article.kb_id}" class="btn btn-danger">Excluir</button>
       </div>
