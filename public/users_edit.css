@@ -19,9 +19,6 @@ body{
     align-items: center;
 }
 
-*{
-    box-sizing: border-box;
-}
 
 .container{
     width: 30%;
