@@ -3,10 +3,8 @@ function getName() {
   console.log(name);
   return name;
 }
-getName();
-
-const loginButton = document.querySelector("#logout");
-loginButton.addEventListener("click", (e) => {
+var logoutButton = document.querySelector("#logout");
+logoutButton.addEventListener("click", (e) => {
   e.preventDefault();
   logout();
 });
@@ -27,7 +25,10 @@ async function logout() {
   }
 }
 
-const loginForm = document.querySelector("#users_create_form");
+var nameElement = document.querySelector("#name");
+nameElement.innerHTML = getName();
+
+var loginForm = document.querySelector("#users_create_form");
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   onSubmit();

@@ -54,11 +54,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/admin">Artigos</a>
-            </li>
-          </ul>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           <div class="d-flex">
             <a id="login" href="login" target="_self">
               <button class="btn btn-outline-success">Entrar</button>
@@ -74,10 +70,14 @@
         </div>
       </div>
     </nav>
+    <h1 class="title">Artigos Destaque</h1>
+    <div id="articles_featured"></div>
     <h1 class="title">Artigos mais curtidos</h1>
-    <input type="text" id="search" placeholder="Pesquisa por tags..." />
+    <div id="articles_liked"></div>
+    <h1 class="title">Pesquisa por tags</h1>
+    <input type="text" id="search" placeholder="Tags separadas por espaço..." />
     <input type="button" id="searchButton" value="Pesquisar" />
     <input type="button" id="clearButton" value="Limpar" />
-    <div id="articles"></div>
+    <div id="articles_search"></div>
   </body>
 </html>
