@@ -81,7 +81,7 @@ editForm.addEventListener("submit", (e) => {
   onSubmit();
 });
 async function getArticle(id) {
-  const user = fetch("http://localhost:3000/article/" + id)
+  const user = fetch("http://localhost:3000/articles_edit/" + id)
     .then((response) => {
       if (response.status === 201) {
         return response.json();
@@ -103,9 +103,9 @@ const keyWords = document.querySelector("#keywords");
 async function renderArticles(id) {
   const article = await getArticle(id);
 
-  title.value = article.kb_title;
-  content.value = article.kb_body;
-  keyWords.value = article.kb_keywords;
+  title.value = article.article.kb_title;
+  content.value = article.article.kb_body;
+  keyWords.value = article.article.kb_keywords;
 }
 
 renderArticles(id);
