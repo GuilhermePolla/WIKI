@@ -1,13 +1,31 @@
-function getName() {
-  const name = localStorage.getItem("@loginWebII");
-  console.log(name);
-  return name;
+async function getUser() {
+  const idRes = fetch("http://localhost:3000/current_user/")
+    .then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      }
+      return null;
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return idRes;
 }
-var logoutButton = document.querySelector("#logout");
-logoutButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  logout();
-});
+
+async function getNome() {
+  const user = await getUser();
+
+  var nameElement = document.querySelector("#name");
+  if (user === null) {
+    window.location.href = "http://localhost:3000/";
+  } else {
+    nameElement.innerHTML = user.author_name;
+  }
+}
+
+getNome();
 
 async function logout() {
   const logoutRes = await fetch("http://localhost:3000/logout", {
@@ -24,9 +42,6 @@ async function logout() {
     alert("Erro ao fazer logout");
   }
 }
-
-var nameElement = document.querySelector("#name");
-nameElement.innerHTML = getName();
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);

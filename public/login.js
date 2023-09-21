@@ -32,7 +32,7 @@ async function onSubmit() {
   if (loginRes.status === 201) {
     const loginResJson = await loginRes.json();
     console.log(loginResJson);
-    localStorage.setItem("@loginWebII", loginResJson.name);
+    localStorage.setItem("@loginWebII", loginResJson.id);
     const redirect = loginResJson.status;
     window.location.href = `http://localhost:3000/${redirect}`;
   }
