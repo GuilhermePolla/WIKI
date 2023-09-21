@@ -1,13 +1,31 @@
-function getName() {
-  const name = localStorage.getItem("@loginWebII");
-  console.log(name);
-  return name;
+async function getUser() {
+  const idRes = fetch("http://localhost:3000/current_user/")
+    .then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      }
+      return null;
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return idRes;
 }
-var logoutButton = document.querySelector("#logout");
-logoutButton.addEventListener("click", (e) => {
-  e.preventDefault();
-  logout();
-});
+
+async function getNome() {
+  const user = await getUser();
+
+  var nameElement = document.querySelector("#name");
+  if (user === null) {
+    window.location.href = "http://localhost:3000/";
+  } else {
+    nameElement.innerHTML = user.author_name;
+  }
+}
+
+getNome();
 
 async function logout() {
   const logoutRes = await fetch("http://localhost:3000/logout", {
@@ -25,9 +43,6 @@ async function logout() {
   }
 }
 
-var nameElement = document.querySelector("#name");
-nameElement.innerHTML = getName();
-
 var articleForm = document.querySelector("#articles_create_form");
 articles_create_form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -37,6 +52,7 @@ articles_create_form.addEventListener("submit", (e) => {
 var title = document.querySelector("#title");
 var content = document.querySelector("#content");
 var keyWords = document.querySelector("#keywords");
+var featured = document.querySelector("#featured");
 
 var dataAtual = new Date();
 var dia = dataAtual.getDate();
@@ -54,11 +70,11 @@ async function onSubmit() {
       kb_title: title.value,
       kb_body: content.value,
       kb_permalink: title.value,
-      kb_keywords: title.keyWords,
+      kb_keywords: keyWords.value,
       kb_liked_count: "0",
       kb_published: "on",
       kb_sugestion: "off",
-      kb_featured: "off",
+      kb_featured: featured.checked ? "on" : "off",
       kb_author_email: "Placeholder",
       kb_published_date: `${ano}-${mes}-${dia}`,
     }),
