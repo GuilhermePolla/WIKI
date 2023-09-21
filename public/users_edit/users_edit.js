@@ -3,10 +3,8 @@ function getName() {
   console.log(name);
   return name;
 }
-getName();
-
-const loginButton = document.querySelector("#logout");
-loginButton.addEventListener("click", (e) => {
+var logoutButton = document.querySelector("#logout");
+logoutButton.addEventListener("click", (e) => {
   e.preventDefault();
   logout();
 });
@@ -26,6 +24,9 @@ async function logout() {
     alert("Erro ao fazer logout");
   }
 }
+
+var nameElement = document.querySelector("#name");
+nameElement.innerHTML = getName();
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
