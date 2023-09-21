@@ -4,72 +4,82 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>users_edit</title>
-    </head
     ><link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
     rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
     crossorigin="anonymous"
-  />
+    />
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"
-  ></script>
-  <script src="users_edit.js" defer></script>
-  <body>
+    ></script>
+    <link rel="stylesheet" href="../users_edit.css">
+    <script src="users_edit.js" defer></script>
+  </head>
+
+    <body>
     <div class="d-flex">
       <h1 id="name">nome</h1>
       <button id="logout" onclick="logout()" class="btn btn-outline-danger">
         Sair
       </button>
     </div>
-    <h1 id="user_name"></h1>
-    <form id="users_edit_form">
-      <input
-        placeholder="Nome..."
-        type="text"
-        id="author_name"
-        name="author_name"
-        required
-      /><br />
-      <input
-        placeholder="Nome de Usuário..."
-        type="text"
-        id="author_user"
-        name="author_user"
-        required
-      /><br />
-      <input
-        placeholder="Senha..."
-        type="password"
-        id="author_pwd"
-        name="author_pwd"
-        required
-      /><br />
-      <input
-        placeholder="Repetir Senha..."
-        type="password"
-        id="repetirSenha"
-        name="repetirSenha"
-        required
-      /><br />
-      <input
-        placeholder="Email..."
-        type="text"
-        id="author_email"
-        name="author_email"
-        required
-      /><br />
-      <input type="radio" id="admin" name="author_level" value="admin" />
-      <label for="admin">Admin</label><br />
-      <input type="radio" id="user" name="author_level" value="user" />
-      <label for="user">User</label><br />
-      <input type="radio" id="on" name="author_status" value="on" />
-      <label for="on">On</label><br />
-      <input type="radio" id="off" name="author_status" value="off" />
-      <label for="off">Off</label><br />
-      <button id="editar_button" type="submit">Concluir</button>
-    </form>
+      <h1 id="user_name"></h1>
+      <div class="container">
+        <form id="users_edit_form">
+          <label for="name">Nome</label>
+          <input
+            placeholder="Nome..."
+            type="text"
+            id="author_name"
+            name="author_name"
+            required
+          /><br />
+          <label for="user_name">Nome de usuario</label>
+          <input
+            placeholder="Nome de Usuário..."
+            type="text"
+            id="author_user"
+            name="author_user"
+            required
+          /><br />
+          <label for="password">Senha</label>
+          <input
+            placeholder="Senha..."
+            type="password"
+            id="author_pwd"
+            name="author_pwd"
+            required
+          /><br />
+          <label for="repeteat_password">Repetir Senha</label>
+          <input
+            placeholder="Repetir Senha..."
+            type="password"
+            id="repetirSenha"
+            name="repetirSenha"
+            required
+          /><br />
+          <label for="Gmail">Gmail</label>
+          <input
+            placeholder="Email..."
+            type="text"
+            id="author_email"
+            name="author_email"
+            required
+          /><br />
+          <input type="radio" id="admin" name="author_level" value="admin" />
+          <label for="admin">Admin</label><br />
+          <input type="radio" id="user" name="author_level" value="user" />
+          <label for="user">User</label><br />
+          <input type="radio" id="on" name="author_status" value="on" />
+          <label for="on">On</label><br />
+          <input type="radio" id="off" name="author_status" value="off" />
+          <label for="off">Off</label><br />
+          <button id="editar_button" type="submit">Concluir</button>
+        </form>
+      </div>
+    
   </body>
 </html>

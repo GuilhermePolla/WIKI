@@ -1,0 +1,38 @@
+
+#user_name{
+    text-align: center;
+}
+
+body{
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 0%, rgba(73,175,241,1) 48%);
+}
+#users_edit_form{
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    text-align: center;
+    padding: 20px 30px;
+    border-radius: 18px;
+    /* cursor: pointer; */
+    align-items: center;
+}
+
+
+.container{
+    width: 30%;
+    display: flex;
+}
+
+input,label{
+    display: block;
+    text-align: left;
+}
+
+
+
+
+
+
+
