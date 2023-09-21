@@ -81,7 +81,7 @@ editForm.addEventListener("submit", (e) => {
   onSubmit();
 });
 async function getArticle(id) {
-  const user = fetch("http://localhost:3000/articles_edit/" + id)
+  const user = fetch("http://localhost:3000/articles_id/" + id)
     .then((response) => {
       if (response.status === 201) {
         return response.json();
