@@ -58,16 +58,79 @@ app.get("/destaques", function (req, res) {
   try {
     const data = fs.readFileSync("./data/articles.json", "utf8");
     const articlesJson = JSON.parse(data);
-    const articles = articlesJson
-      .filter((article) => {
-        if (article.kb_featured === "on") {
-          return article;
-        }
-      })
-      .sort((a, b) => {
-        return b.kb_liked_count - a.kb_liked_count;
-      });
+    const articles = articlesJson.filter((article) => {
+      if (article.kb_featured === "on") {
+        return article;
+      }
+    });
     if (articles !== undefined) {
+      return res.status(201).send(articles);
+    }
+    return res.status(400).send("Article not found");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Server error");
+  }
+});
+
+app.get("/user_articles", function (req, res) {
+  try {
+    const data = fs.readFileSync("./data/articles.json", "utf8");
+    const articlesJson = JSON.parse(data);
+    const articles = articlesJson.filter((article) => {
+      if (article.kb_author_email === req.session.user.author_email) {
+        return article;
+      }
+    });
+    if (articles !== undefined) {
+      return res.status(201).send(articles);
+    }
+    return res.status(400).send("Article not found");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Server error");
+  }
+});
+
+app.get("/most_liked", function (req, res) {
+  try {
+    const data = fs.readFileSync("./data/articles.json", "utf8");
+    const articlesJson = JSON.parse(data);
+    const articles = articlesJson.sort((a, b) => {
+      return b.kb_liked_count - a.kb_liked_count;
+    });
+
+    if (articles !== undefined) {
+      if (articles.length > 10) {
+        articles.slice(0, 10);
+        return res.status(201).send(articles);
+      }
+      return res.status(201).send(articles);
+    }
+    return res.status(400).send("Article not found");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Server error");
+  }
+});
+
+app.get("/search/:text", (req, res) => {
+  console.log(req.params.text);
+  try {
+    const data = fs.readFileSync("./data/articles.json", "utf8");
+    const articlesJson = JSON.parse(data);
+    const tags = req.params.text.split(" ");
+    const articles = articlesJson.filter((article) => {
+      const articleTags = article.kb_keywords.split(" ");
+      const found = tags.every((tag) => articleTags.includes(tag));
+
+      console.log(found);
+      if (found) {
+        return article;
+      }
+    });
+    if (articles !== undefined) {
+      console.log(articles);
       return res.status(201).send(articles);
     }
     return res.status(400).send("Article not found");
@@ -106,7 +169,10 @@ app.post("/login", (req, res) => {
     if (user !== undefined) {
       req.session.user = user;
       console.log(req.session.user);
-      return res.status(201).json({ status: req.session.user.author_level });
+      return res.status(201).json({
+        status: req.session.user.author_level,
+        name: req.session.user.author_name,
+      });
     } else {
       return res.status(401).json({ status: "error" });
     }
@@ -201,7 +267,7 @@ app.post("/users_create", (req, res) => {
 });
 
 //editar user
-app.post("/users_edit/:id", authenticatorAdmin, (req, res) => {
+app.post("/users_edit/:id", (req, res) => {
   console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/users.json", "utf8");
@@ -290,6 +356,20 @@ app.get("/articles_edit", authenticatorUser, (req, res) => {
   return res.sendFile("./views/articles_edit.html", { root: "." });
 });
 
+//mostrar todos os articles
+app.get("/all_articles", (req, res) => {
+  try {
+    const data = fs.readFileSync("./data/articles.json", "utf8");
+    const articles = JSON.parse(data);
+    res.status(201).send(articles);
+    return;
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: "error" });
+    return;
+  }
+});
+
 //likes
 app.post("/like/:id", (req, res) => {
   console.log(req.params.id);
@@ -370,20 +450,40 @@ app.post("/articles_create", (req, res, next) => {
 });
 
 //editar artigo
-app.post("/articles_edit", (req, res, next) => {
-  console.log(req.body);
+app.post("/articles_edit/:id", (req, res, next) => {
+  console.log(req.params.id);
   try {
     const data = fs.readFileSync("./data/articles.json", "utf8");
     const articles = JSON.parse(data);
     const newArticle = {
-      ...req.body,
+      kb_id: strictEqual.params.id,
+      kb_title: req.body.kb_title,
+      kb_body: req.body.kb_body,
+      kb_permalink: req.body.kb_permalink,
+      kb_keywords: req.body.kb_keywords,
+      kb_liked_count: req.body.kb_liked_count,
+      kb_published: req.body.kb_published,
+      kb_suggestion: req.body.kb_suggestion,
+      kb_featured: req.body.kb_featured,
+      kb_author_email: req.body.kb_author_email,
+      kb_published_date: req.body.kb_published_date,
     };
     const filteredArticles = articles.filter((article) => {
       return article.kb_id !== newArticle.kb_id;
     });
-    filteredArticles.push(newArticle);
-    fs.writeFileSync("./data/articles.json", JSON.stringify(filteredArticles));
-    return res.status(201).json({ status: "success" });
+    if (
+      filteredArticles.find((article) => article.kb_id === newArticle.kb_id) ===
+      undefined
+    ) {
+      filteredArticles.push(newArticle);
+
+      fs.writeFileSync(
+        "./data/articles.json",
+        JSON.stringify(filteredArticles)
+      );
+      return res.status(201).json({ status: "success" });
+    }
+    return res.status(400).json({ status: "error" });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ status: "error" });

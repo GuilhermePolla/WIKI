@@ -4,8 +4,8 @@ function getName() {
   return name;
 }
 
-const loginButton = document.querySelector("#logout");
-loginButton.addEventListener("click", (e) => {
+var logoutButton = document.querySelector("#logout");
+logoutButton.addEventListener("click", (e) => {
   e.preventDefault();
   logout();
 });
@@ -26,7 +26,7 @@ async function logout() {
   }
 }
 
-const nameElement = document.querySelector("#name");
+var nameElement = document.querySelector("#name");
 nameElement.innerHTML = getName();
 
 async function getArticles() {

@@ -17,7 +17,12 @@
   ></script>
   <script src="users_edit.js" defer></script>
   <body>
-    <button id="logout" onclick="logout()">Logout</button>
+    <div class="d-flex">
+      <h1 id="name">nome</h1>
+      <button id="logout" onclick="logout()" class="btn btn-outline-danger">
+        Sair
+      </button>
+    </div>
     <h1 id="user_name"></h1>
     <form id="users_edit_form">
       <input

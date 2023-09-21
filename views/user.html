@@ -17,13 +17,19 @@
   ></script>
   <script src="user.js" defer></script>
   <body>
-    <button id="logout" onclick="logout()">Logout</button>
+    <div class="d-flex">
+      <h1 id="name">nome</h1>
+      <button id="logout" onclick="logout()" class="btn btn-outline-danger">
+        Sair
+      </button>
+    </div>
     <h1 id="name"></h1>
-    <a href="/articles/articles_create" target="_self">
+    <a href="/articles_create" target="_self">
       <button>articles_create</button>
     </a>
-    <a href="/articles/articles_edit" target="_self">
+    <a href="/articles_edit" target="_self">
       <button>articles_edit</button>
     </a>
+    <div id="articles"></div>
   </body>
 </html>
