@@ -3,10 +3,8 @@ function getName() {
   console.log(name);
   return name;
 }
-getName();
-
-const loginButton = document.querySelector("#logout");
-loginButton.addEventListener("click", (e) => {
+var logoutButton = document.querySelector("#logout");
+logoutButton.addEventListener("click", (e) => {
   e.preventDefault();
   logout();
 });
@@ -27,20 +25,23 @@ async function logout() {
   }
 }
 
-const articleForm = document.querySelector("#articles_create_form");
+var nameElement = document.querySelector("#name");
+nameElement.innerHTML = getName();
+
+var articleForm = document.querySelector("#articles_create_form");
 articles_create_form.addEventListener("submit", (e) => {
   e.preventDefault();
   onSubmit();
 });
 
-const title = document.querySelector("#title");
-const content = document.querySelector("#content");
-const keyWords = document.querySelector("#keywords");
+var title = document.querySelector("#title");
+var content = document.querySelector("#content");
+var keyWords = document.querySelector("#keywords");
 
-const dataAtual = new Date();
-const dia = dataAtual.getDate();
-const mes = dataAtual.getMonth() + 1;
-const ano = dataAtual.getFullYear();
+var dataAtual = new Date();
+var dia = dataAtual.getDate();
+var mes = dataAtual.getMonth() + 1;
+var ano = dataAtual.getFullYear();
 
 async function onSubmit() {
   console.log("test");

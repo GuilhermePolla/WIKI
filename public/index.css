@@ -21,11 +21,10 @@ body{
     text-align: center;
 }
 
-.bi, .bi-hand-thumbs-up{
-    height: 30px;
-    width: 30px;
-}
 
-.bi:hover{
-    color: rgb(70, 70, 251);
+
+#like_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
