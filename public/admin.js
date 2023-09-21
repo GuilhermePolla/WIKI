@@ -4,7 +4,7 @@ function getName() {
   return name;
 }
 
-const loginButton = document.querySelector("#logout");
+var loginButton = document.querySelector("#logout");
 loginButton.addEventListener("click", (e) => {
   e.preventDefault();
   logout();
