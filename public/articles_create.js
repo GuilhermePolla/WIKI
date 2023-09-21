@@ -64,7 +64,7 @@ async function onSubmit() {
   });
 
   if (articleRes.status === 201) {
-    alert("User created successfully");
+    alert("Artigo criado com sucesso");
   }
 
   if (articleRes.status === 400) {
@@ -74,4 +74,19 @@ async function onSubmit() {
   if (articleRes.status === 500) {
     alert("Erro");
   }
+}
+async function getArticles() {
+  const users = fetch("http://localhost:3000/all_articles")
+    .then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      }
+      return null;
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+
+  return users;
 }
