@@ -1,6 +1,8 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+    border: none;
 }
 
 body{
@@ -12,31 +14,34 @@ body{
     margin-left: auto;
     margin-right: auto;
     margin-top: 10vh;
-    text-align: center;
     padding: 20px 30px;
-    border-radius: 18px;
-    cursor: pointer;
     align-items: center;
 }
 
 
 .container{
-    display: flex;
+    text-align: center;
+    display: block;
     justify-content: center;
 }
 
 input, textarea, label{
-    display: block;
-    width: 100%;
     text-align: left;
+    display: flex;
+    width: 100%;
 }
 
 label{
     font-weight: bold;
+    font-size: 1.5rem;
 }
 
 input, textarea{
     margin-bottom: 20px;
+    border-bottom: 2px solid #323232;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
 #cadastrar_button{
@@ -49,6 +54,9 @@ input, textarea{
     padding: 10px;
     background-color: rgb(96, 152, 255);
     color: white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #cadastrar_button:hover{
@@ -58,4 +66,18 @@ input, textarea{
 .name_user{
     font-size: 2rem;
     margin-right: 20px;
+}
+
+.options_form{
+    display:inline-flex;
+}
+
+h1, h2{
+    font-weight: bold;
+}
+
+.yesornot{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
 }

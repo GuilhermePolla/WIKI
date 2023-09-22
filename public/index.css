@@ -17,8 +17,10 @@ body{
 
 .card{
     margin: 2vh;
-    border-radius: 18px;
+    width: 30%;
     text-align: center;
+    display: inline-flex;
+    padding: 0 5vw 0 5vw;
 }
 
 
@@ -27,4 +29,17 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.search{
+    background-color: #dadada;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#articles_featured{
+   justify-content: center;
+   align-items: center;
+   display: flex;
 }
