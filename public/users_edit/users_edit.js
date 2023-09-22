@@ -53,7 +53,7 @@ editForm.addEventListener("submit", (e) => {
   onSubmit();
 });
 
-async function getUser(id) {
+async function getUserId(id) {
   const user = fetch("http://localhost:3000/user/" + id)
     .then((response) => {
       if (response.status === 201) {
@@ -80,7 +80,7 @@ const author_status_on = document.querySelector("#on");
 const author_status_off = document.querySelector("#off");
 
 async function renderUser(id) {
-  const user = await getUser(id);
+  const user = await getUserId(id);
 
   const userContainer = document.querySelector("#user_name");
 

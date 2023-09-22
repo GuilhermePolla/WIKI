@@ -20,8 +20,6 @@
     margin-bottom: 10vh;
     text-align: center;
     padding: 20px 30px;
-    border-radius: 18px;
-    /* cursor: pointer; */
     align-items: center;
 }
 
@@ -35,13 +33,12 @@
 
 .card{
     margin: 0 2vh 2vh 2vh;
-    border-radius: 18px;
     text-align: center;
     width: 22%;
 }
 
 .options_form{
-    display: flex;
+    display: inline-flex;
 }
 
 #status_form{
@@ -49,7 +46,6 @@
 }
 
 h2{
-    font-size: 1rem;
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;

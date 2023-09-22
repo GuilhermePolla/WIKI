@@ -114,7 +114,6 @@ async function renderMostLiked() {
     articleCard.innerHTML = `
       <div class="card-body">
         <h5 class="card-title">${article.kb_title}</h5>
-        <p class="card-text">${article.kb_body}</p>
         <p class="card-text">${article.kb_author_email}</p>
         <div id="like_wrapper">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="like${article.kb_id}" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
@@ -160,7 +159,6 @@ async function renderDestaques() {
     articleCard.innerHTML = `
       <div class="card-body">
         <h5 class="card-title">${article.kb_title}</h5>
-        <p class="card-text">${article.kb_body}</p>
         <p class="card-text">${article.kb_author_email}</p>
         <div id="like_wrapper">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="like${article.kb_id}" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
@@ -228,7 +226,6 @@ async function renderArticlesBySearch() {
     articleCard.innerHTML = `
       <div class="card-body">
         <h5 class="card-title">${article.kb_title}</h5>
-        <p class="card-text">${article.kb_body}</p>
         <p class="card-text">${article.kb_author_email}</p>
         <div id="like_wrapper">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="like${article.kb_id}" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
