@@ -1,10 +1,3 @@
-function getName() {
-  const name = localStorage.getItem("@loginWebII");
-  console.log(name);
-  return name;
-}
-getName();
-
 const loginForm = document.querySelector("#login_form");
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();

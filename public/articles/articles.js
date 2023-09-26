@@ -18,10 +18,17 @@ async function getNome() {
   const user = await getUser();
 
   var nameElement = document.querySelector("#name");
+  var login_elem = document.querySelector("#login");
+  var logout_elem = document.querySelector("#logout");
+
   if (user === null) {
-    window.location.href = "http://localhost:3000/";
+    login_elem.style.display = "block";
+    logout_elem.style.display = "none";
+    nameElement.style.display = "none";
   } else {
     nameElement.innerHTML = user.author_name;
+    login_elem.style.display = "none";
+    logout_elem.style.display = "block";
   }
 }
 
