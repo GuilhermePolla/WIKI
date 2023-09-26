@@ -15,6 +15,7 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../users_create.css">
     <link rel="stylesheet" href="../articles_create.css" />
     <link rel="stylesheet" href="../users_edit.css">
@@ -22,7 +23,7 @@
   </head>
 
     <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Wiki</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -53,8 +54,8 @@
       </nav>
 
       <div class="container">
-        <h1 id="user_name"></h1>
-        <form id="users_edit_form">
+        <form id="users_edit_form" class="form_box">
+          <h1 id="user_name"></h1>
           <label for="name">Nome</label>
           <input
             placeholder="Insira o nome"
@@ -97,19 +98,19 @@
           />
           <h2>Cargo</h2>
           <div class="options_form">
-            <label for="admin">Admin</label>
-            <input type="radio" id="admin" name="author_level" value="admin" />
-            <label for="user">User</label>
-            <input type="radio" id="user" name="author_level" value="user" />
+            <label for="admin" class="yesornot">Admin</label>
+            <input type="radio" id="admin" name="author_level" value="admin" class="yesornot"/>
+            <label for="user" class="yesornot">User</label>
+            <input type="radio" id="user" name="author_level" value="user" class="yesornot"/>
           </div>
           <h2>Status</h2>
           <div class="options_form" id="status_form">
-            <label for="on">On</label>
-            <input type="radio" id="on" name="author_status" value="on" />
-            <label for="off">Off</label>
-            <input type="radio" id="off" name="author_status" value="off" />
+            <label for="on" class="yesornot">On</label>
+            <input type="radio" id="on" name="author_status" value="on" class="yesornot"/>
+            <label for="off" class="yesornot">Off</label>
+            <input type="radio" id="off" name="author_status" value="off" class="yesornot"/>
           </div>
-          <button id="editar_button" type="submit">Concluir</button>
+          <button id="editar_button" type="submit" class="general_button">Concluir</button>
         </form>
       </div>
     

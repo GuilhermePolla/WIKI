@@ -11,10 +11,12 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
   <script src="articles_create.js" defer></script>
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../articles_create.css">
 </head>
+
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Wiki</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -44,7 +46,7 @@
     </div>
   </nav>
   <div class="container">
-    <form id="articles_edit_form">
+    <form id="articles_edit_form" class="form_box">
       <h1 class="title_form">Editar Artigo</h1>
       <label for="title">Titulo</label>
       <input placeholder="Insira o Titulo" type="text" id="title" name="title" />
@@ -55,7 +57,7 @@
       <textarea placeholder="Insira as palavras chave" type="text" id="keywords" name="keywords"
         rows="2" cols="70">
       </textarea>
-      <button id="cadastrar_button" type="submit">Editar</button>
+      <button id="cadastrar_button" type="submit" class="general_button">Concluir</button>
     </form>
   </div>
 </body>
