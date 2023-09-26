@@ -16,11 +16,11 @@
       crossorigin="anonymous"
     ></script>
     <script src="articles_create.js" defer></script>
-    <link rel="stylesheet" href="../articles_create.css" />
+    <link rel="stylesheet" href="../style.css">
   </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Wiki</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -50,7 +50,7 @@
     </nav>
 
     <div class="container">
-      <form id="articles_create_form">
+      <form id="articles_create_form" class="form_box">
         <h1 class="title_form">Criar Artigo</h1>
         <label for="title">Titulo</label>
         <input
@@ -59,7 +59,7 @@
           id="title"
           name="title"
         />
-        <label for="content">Texto</label>
+        <label for="content" >Texto</label>
         <textarea
           placeholder="Insira o Texto"
           type="text"
@@ -67,9 +67,10 @@
           name="content"
           rows="5"
           cols="70"
+      
         >
         </textarea>
-        <label for="keywords"
+        <label for="keywords" 
           >Escreva as palavras chave separadas por espaço.</label
         >
         <textarea
@@ -81,14 +82,14 @@
           cols="70"
         >
         </textarea>
-        <h2>Featured:</h2>
+        <h2>Destaque?</h2>
         <div class="options_form">
-          <label for="not_featured">Não</label>
-          <input type="radio" id="not_featured" name="featured" value="not_featured" />
-          <label for="featured">Sim</label>
-          <input type="radio" id="featured" name="featured" value="featured" />
+          <label for="featured" class="yesornot">Sim</label>
+          <input type="radio" id="featured" name="featured" value="featured" class="yesornot" />
+          <label for="not_featured" class="yesornot">Não</label>
+          <input type="radio" id="not_featured" name="featured" value="not_featured" class="yesornot" />
         </div>
-        <button id="cadastrar_button" type="submit">Cadastrar</button>
+        <button id="cadastrar_button" type="submit" class="general_button">Cadastrar</button>
       </form>
     </div>
   </body>
