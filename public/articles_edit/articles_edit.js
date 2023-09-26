@@ -74,6 +74,7 @@ async function logout() {
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
 const id = params.get("id");
+console.log("id na url: ", id);
 
 const editForm = document.querySelector("#articles_edit_form");
 editForm.addEventListener("submit", (e) => {
@@ -81,6 +82,7 @@ editForm.addEventListener("submit", (e) => {
   onSubmit();
 });
 async function getArticle(id) {
+  console.log("id dentro do getArticle: ", id);
   const user = fetch("http://localhost:3000/articles_id/" + id)
     .then((response) => {
       if (response.status === 201) {
@@ -108,7 +110,6 @@ const keyWords = document.querySelector("#keywords");
 const featured = document.querySelector("#featured");
 const notFeatured = document.querySelector("#not_featured");
 
-
 async function renderArticles(id) {
   const article = await getArticle(id);
 
@@ -116,10 +117,10 @@ async function renderArticles(id) {
   content.value = article.article.kb_body;
   keyWords.value = article.article.kb_keywords;
   featured.checked = article.article.kb_featured === "on";
-  notFeatured.checked = article.article.kb_featured === "off"
+  notFeatured.checked = article.article.kb_featured === "off";
 }
 
-async function onSubmit(id) {
+async function onSubmit() {
   const article = await getArticle(id);
   const editRes = await fetch("http://localhost:3000/articles_edit/" + id, {
     method: "POST",
@@ -130,9 +131,7 @@ async function onSubmit(id) {
       kb_title: title.value,
       kb_body: content.value,
       kb_keywords: keyWords.value,
-      kb_featured: featured.checked
-        ? "on"
-        : "off",
+      kb_featured: featured.checked ? "on" : "off",
       kb_id: article.article.kb_id,
       kb_permalink: article.article.kb_permalink,
       kb_liked_count: article.article.kb_liked_count,
