@@ -10,10 +10,9 @@ app.use(
     secret: "your_secret_key",
     resave: false,
     saveUninitialized: true,
-    // cookie: {
-    //   secure: false,
-    //   maxAge: 6000000,
-    // },
+    cookie: {
+      sameSite: "strict",
+    },
   })
 );
 // app.use(express.urlencoded({ extended: true }));
@@ -55,6 +54,7 @@ app.get("/current_user", (req, res) => {
     return res.status(201).json({
       author_id: req.session.user.author_id,
       author_name: req.session.user.author_name,
+      author_level: req.session.user.author_level,
       status: "success",
     });
   }
