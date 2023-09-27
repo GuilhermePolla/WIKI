@@ -91,7 +91,6 @@ h2, h1{
 }
 
 .search{
-    background-color: #dadada;
     width: 44%;
     align-items: center;
     text-align: center;
@@ -99,10 +98,8 @@ h2, h1{
     margin-bottom: 20px;
 }
 
-#like_wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.search-color{
+    background-color: #dadada;
 }
 
 label, input, textarea{
@@ -153,10 +150,19 @@ input:focus {
 .bi-hand-thumbs-up{
     height: 30px;
     width: 30px;
+    margin-right: 10px;
 }
 
-.bi-hand-thumbs-up:hover{
+.like-btn:hover{
     color: rgb(70, 70, 251);
+}
+
+#like_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .options_form{
@@ -169,6 +175,46 @@ input:focus {
     margin-left: 20px;
 }
 
-.article_read{
+.article-read{
     margin: 20px;
+    background-color: #dadada;
+    padding: 20px;
+    text-align: center;
+}
+
+.article-divider{
+    height: 3vh;
+    color: #000000;
+    margin: 10px 10px 20px 10px;
+}
+
+.article-title{
+    color: #000000;
+    font-weight: bold;
+    font-size: 4rem;
+}
+
+.article-content{
+    font-size: 1.5rem;
+}
+
+.article-footer{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.like-camp{
+    display: flex;
+}
+
+.featurette-divider{
+    height: 1vh;
+    color: #dadada;
+}
+
+footer{
+    margin: 4vh;
+    color: #dadada;
 }
