@@ -18,11 +18,21 @@ async function getNome() {
   const user = await getUser();
 
   var nameElement = document.querySelector("#name");
-  if (user === null) {
-    window.location.href = "http://localhost:3000/";
-  } else {
-    nameElement.innerHTML = user.author_name;
+  var logout_elem = document.querySelector("#logout");
+  var home_elem = document.querySelector("#home");
+  var criar_user_elem = document.querySelector("#Criar_Usuarios");
+  criar_user_elem.style.display = "none";
+
+  if (user.author_level === "admin") {
+    home_elem.href = "/admin";
+    criar_user_elem.style.display = "block";
   }
+  if (user.author_level === "user") {
+    home_elem.href = "/user";
+    criar_user_elem.style.display = "none";
+  }
+  nameElement.innerHTML = user.author_name;
+  logout_elem.style.display = "block";
 }
 
 getNome();
