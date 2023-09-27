@@ -4,8 +4,14 @@
   "description": "Trabalho Web II",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./app.js localhost 3000",
+    "start": "nodemon ./app.js localhost 3000 ",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "articles.json",
+      "users.json"
+    ]
   },
   "author": "",
   "license": "ISC",

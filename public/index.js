@@ -18,17 +18,17 @@ async function getNome() {
   const user = await getUser();
 
   var nameElement = document.querySelector("#name");
-  var login_elem = document.querySelector("#login");
   var logout_elem = document.querySelector("#logout");
+  var home_elem = document.querySelector("#home");
 
-  if (user === null) {
-    login_elem.style.display = "block";
-    logout_elem.style.display = "none";
-  } else {
-    nameElement.innerHTML = user.author_name;
-    login_elem.style.display = "none";
-    logout_elem.style.display = "block";
+  if (user.author_level === "admin") {
+    home_elem.href = "/admin";
   }
+  if (user.author_level === "user") {
+    home_elem.href = "/user";
+  }
+  nameElement.innerHTML = user.author_name;
+  logout_elem.style.display = "block";
 }
 
 getNome();
