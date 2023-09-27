@@ -55,10 +55,10 @@ app.get("/current_user", (req, res) => {
     return res.status(201).json({
       author_id: req.session.user.author_id,
       author_name: req.session.user.author_name,
-      // author_level: req.session.user.author_level,
+      status: "success",
     });
   }
-  return res.status(401).json({ status: "error" });
+  return res.status(200).json({ status: "error" });
 });
 
 //--------------------INDEX--------------------//
@@ -469,7 +469,7 @@ app.post("/articles_edit/:id", (req, res, next) => {
     const data = fs.readFileSync("./data/articles.json", "utf8");
     const articles = JSON.parse(data);
     const newArticle = {
-      kb_id: strictEqual.params.id,
+      kb_id: req.params.id,
       kb_title: req.body.kb_title,
       kb_body: req.body.kb_body,
       kb_permalink: req.body.kb_permalink,
