@@ -34,7 +34,7 @@ body{
     align-content: space-around;
     flex-wrap: wrap;
     background-color: #dadada;
-    border-radius: 0;
+    border-radius: 18px;
 }
 
 .wrapper{
@@ -54,6 +54,7 @@ body{
     text-align: center;
     margin-bottom: 10vh;
     align-items: center;
+    border-radius: 18px;
 }
 
 .container{
@@ -178,6 +179,7 @@ input:focus {
 .article-read{
     margin: 20px;
     background-color: #dadada;
+    border-radius: 18px;
     padding: 20px;
     text-align: center;
 }
