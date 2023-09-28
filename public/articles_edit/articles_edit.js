@@ -86,11 +86,6 @@ const params = new URLSearchParams(url.search);
 const id = params.get("id");
 console.log("id na url: ", id);
 
-const editForm = document.querySelector("#articles_edit_form");
-editForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  onSubmit();
-});
 async function getArticle(id) {
   console.log("id dentro do getArticle: ", id);
   const user = fetch("http://localhost:3000/articles_id/" + id)
@@ -108,10 +103,16 @@ async function getArticle(id) {
   return user;
 }
 
-var subButton = document.querySelector("#cadastrar_button");
-subButton.addEventListener("submit", (e) => {
+// var subButton = document.querySelector("#cadastrar_button");
+// subButton.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   onSubmit(id);
+// });
+
+const editForm = document.querySelector("#articles_edit_form");
+editForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  onSubmit(id);
+  onSubmit();
 });
 
 const title = document.querySelector("#title");
@@ -151,6 +152,20 @@ async function onSubmit() {
       kb_published_date: article.article.kb_published_date,
     }),
   });
+  if (editRes.status === 201) {
+    alert("Artigo editado com sucesso");
+    return;
+  }
+
+  if (editRes.status === 400) {
+    alert("Artigo já existe");
+    return;
+  }
+
+  if (editRes.status === 500) {
+    alert("Erro");
+    return;
+  }
 }
 
 renderArticles(id);
