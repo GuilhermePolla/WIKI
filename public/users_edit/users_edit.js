@@ -96,6 +96,10 @@ async function renderUser(id) {
 }
 
 async function onSubmit() {
+  if (author_pwd.value !== repetirSenha.value) {
+    alert("Passwords do not match.");
+    return;
+  }
   const editRes = await fetch("http://localhost:3000/users_edit/" + id, {
     method: "POST",
     headers: {

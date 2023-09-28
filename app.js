@@ -55,6 +55,7 @@ app.get("/current_user", (req, res) => {
       author_id: req.session.user.author_id,
       author_name: req.session.user.author_name,
       author_level: req.session.user.author_level,
+      author_email: req.session.user.author_email,
       status: "success",
     });
   }
@@ -438,7 +439,7 @@ app.get("/all_articles", (req, res) => {
 });
 
 //criar artigo
-app.post("/articles_create", (req, res, next) => {
+app.post("/articles_create", (req, res) => {
   console.log(req.body);
   try {
     const data = fs.readFileSync("./data/articles.json", "utf8");

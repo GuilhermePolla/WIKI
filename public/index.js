@@ -18,9 +18,17 @@ async function getNome() {
   const user = await getUser();
 
   var nameElement = document.querySelector("#name");
+  var login_elem = document.querySelector("#login");
   var logout_elem = document.querySelector("#logout");
   var home_elem = document.querySelector("#home");
 
+  if (user === null) {
+    home_elem.style.display = "none";
+    nameElement.style.display = "none";
+    login_elem.style.display = "block";
+    logout_elem.style.display = "none";
+    return;
+  }
   if (user.author_level === "admin") {
     home_elem.href = "/admin";
   }

@@ -70,7 +70,8 @@ var mes = dataAtual.getMonth() + 1;
 var ano = dataAtual.getFullYear();
 
 async function onSubmit() {
-  console.log("test");
+  const user = await getUser();
+  console.log(user.author_email);
   const articleRes = await fetch("http://localhost:3000/articles_create", {
     method: "POST",
     headers: {
@@ -85,20 +86,21 @@ async function onSubmit() {
       kb_published: "on",
       kb_sugestion: "off",
       kb_featured: featured.checked ? "on" : "off",
-      kb_author_email: "Placeholder",
+      kb_author_email: user.author_email,
       kb_published_date: `${ano}-${mes}-${dia}`,
     }),
   });
+  const response = await articleRes.json();
 
-  if (articleRes.status === 201) {
+  if (response.status === 201) {
     alert("Artigo criado com sucesso");
   }
 
-  if (articleRes.status === 400) {
+  if (response.status === 400) {
     alert("Arigo já existe");
   }
 
-  if (articleRes.status === 500) {
+  if (response.status === 500) {
     alert("Erro");
   }
 }
